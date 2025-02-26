@@ -16,9 +16,9 @@ public interface GameApi {
     @PostMapping
     public ResponseEntity<GameModel> createGame(@RequestBody GameModel gameModel);
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update/{gameId}")
     public ResponseEntity<Void> updateGame(@RequestBody GameModel gameModel, @PathVariable Long gameId);
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{gameId}")
     public ResponseEntity<Void> deleteGame(@PathVariable Long gameId);
 }

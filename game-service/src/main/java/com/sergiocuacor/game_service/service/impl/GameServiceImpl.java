@@ -1,7 +1,6 @@
 package com.sergiocuacor.game_service.service.impl;
 
 import com.sergiocuacor.game_service.commons.entities.GameModel;
-import com.sergiocuacor.game_service.commons.exceptions.GameDoesntExistException;
 import com.sergiocuacor.game_service.commons.exceptions.GameNotFoundException;
 import com.sergiocuacor.game_service.repository.GameRepository;
 import com.sergiocuacor.game_service.service.GameService;
@@ -43,6 +42,7 @@ public class GameServiceImpl implements GameService {
         return Optional.of(gameId)
                 .flatMap(gameRepository::findById)
                 .map(existingGame -> updateGameFields(existingGame, gameModel))
+                .map(gameRepository::save)
                 .orElseThrow(() -> new RuntimeException("An error occurred while trying to update the game"));
     }
 
