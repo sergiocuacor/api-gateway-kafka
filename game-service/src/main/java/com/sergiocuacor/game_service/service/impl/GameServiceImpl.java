@@ -1,6 +1,8 @@
 package com.sergiocuacor.game_service.service.impl;
 
 import com.sergiocuacor.game_service.commons.entities.GameModel;
+import com.sergiocuacor.game_service.commons.exceptions.GameDoesntExistException;
+import com.sergiocuacor.game_service.commons.exceptions.GameNotFoundException;
 import com.sergiocuacor.game_service.repository.GameRepository;
 import com.sergiocuacor.game_service.service.GameService;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,7 @@ public class GameServiceImpl implements GameService {
     public GameModel getGame(Long gameId) {
         return Optional.of(gameId)
                 .flatMap(gameRepository::findById)
-                .orElseThrow(()-> new RuntimeException("Game with ID "+ gameId+ " not found."));
+                .orElseThrow(() -> new GameNotFoundException("Game with ID " + gameId + " not found."));
     }
 
     @Override
@@ -29,10 +31,10 @@ public class GameServiceImpl implements GameService {
         return Optional.of(gameRequest)
                 .map(this::mapToEntity)
                 .map(gameRepository::save)
-                .orElseThrow(()-> new RuntimeException("An error occurred while creating the game"));
+                .orElseThrow(() -> new RuntimeException("An error occurred while creating the game"));
     }
 
-    private GameModel mapToEntity( GameModel gameRequest) {
+    private GameModel mapToEntity(GameModel gameRequest) {
         return GameModel.builder().name(gameRequest.getName()).build();
     }
 
@@ -46,12 +48,12 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public void deleteGame(Long gameId) {
-        return
+        Optional.of(gameId)
+                .ifPresent(gameRepository::deleteById);
     }
 
     private GameModel updateGameFields(GameModel existingGame, GameModel gameModel) {
-
-        if(existingGame.getName() != null && !existingGame.getName().isEmpty()){
+        if (existingGame.getName() != null && !existingGame.getName().isEmpty()) {
             existingGame.setName(gameModel.getName());
         }
 
