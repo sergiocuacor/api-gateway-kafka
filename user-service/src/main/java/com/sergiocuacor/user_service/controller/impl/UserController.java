@@ -1,6 +1,8 @@
 package com.sergiocuacor.user_service.controller.impl;
 
 import com.sergiocuacor.user_service.commons.constants.ApiPathConstants;
+import com.sergiocuacor.user_service.commons.dtos.UserResponse;
+import com.sergiocuacor.user_service.commons.dtos.UserUpdateRequest;
 import com.sergiocuacor.user_service.commons.entities.UserModel;
 import com.sergiocuacor.user_service.controller.UserApi;
 import com.sergiocuacor.user_service.service.UserService;
@@ -18,19 +20,21 @@ public class UserController implements UserApi {
         this.userService = userService;
     }
 
-
     @Override
-    public ResponseEntity<UserModel> getUser(Long userId) {
-        return null;
+    public ResponseEntity<UserResponse> getUser(Long userId) {
+        return ResponseEntity.ok(userService.getUser(userId));
     }
 
     @Override
-    public ResponseEntity<Void> updateUser(UserModel user, Long userId) {
-        return null;
+    public ResponseEntity<Void> updateUser(UserUpdateRequest user, Long userId) {
+
+        userService.updateUser(user, userId);
+        return ResponseEntity.noContent().build();
     }
 
     @Override
     public ResponseEntity<Void> deleteUser(Long userId) {
-        return null;
+        userService.deleteUser(userId);
+        return ResponseEntity.noContent().build();
     }
 }
