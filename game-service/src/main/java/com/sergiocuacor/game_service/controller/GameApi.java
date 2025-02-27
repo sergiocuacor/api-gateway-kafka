@@ -2,7 +2,6 @@ package com.sergiocuacor.game_service.controller;
 
 import com.sergiocuacor.game_service.commons.constants.ApiPathConstants;
 import com.sergiocuacor.game_service.commons.entities.GameModel;
-import com.sergiocuacor.game_service.commons.entities.GameResponseDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
