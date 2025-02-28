@@ -19,7 +19,7 @@ public class JwtServiceImpl implements JwtService {
 
     public JwtServiceImpl(@Value("${jwt.secret}") String secretToken){
         this.secretToken=secretToken;
-    }// Leemos el jwt secret del yaml
+    }
 
     @Override
     public TokenResponse generateToken(Long userId) {
