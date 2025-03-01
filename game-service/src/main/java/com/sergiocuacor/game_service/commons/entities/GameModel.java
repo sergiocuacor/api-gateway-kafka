@@ -17,9 +17,10 @@ public class GameModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotBlank
+    private Long gameId;
+    @Column(nullable = false)
+    private Long userId;
+    @Column(nullable = false)
     private String name;
 
 }

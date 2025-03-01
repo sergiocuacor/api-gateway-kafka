@@ -6,8 +6,9 @@ public interface GameService {
 
 
     GameModel getGame(Long gameId);
-    GameModel createGame(GameModel gameRequest);
-        GameModel updateGame(GameModel gameModel, Long gameId);
+    GameModel createGame(GameModel gameModel);
+    GameModel updateGame(Long gameId, GameModel gameModel);
+
     void deleteGame(Long gameId);
 
 }

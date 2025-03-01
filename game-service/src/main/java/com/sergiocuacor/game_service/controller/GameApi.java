@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.*;
 public interface GameApi {
 
     @GetMapping("/{gameId}")
-    public ResponseEntity<GameModel> getGame(@PathVariable Long gameId);
+    ResponseEntity<GameModel> getGame(@PathVariable Long gameId, @RequestHeader("X-User-Id") Long userId);
 
-    @PostMapping
-    public ResponseEntity<GameModel> createGame(@RequestBody GameModel gameModel);
+    @PostMapping("/create")
+    ResponseEntity<GameModel> createGame(@RequestBody GameModel gameRequest, @RequestHeader("X-User-Id") Long userId);
 
     @PutMapping("/update/{gameId}")
-    public ResponseEntity<Void> updateGame(@RequestBody GameModel gameModel, @PathVariable Long gameId);
+    ResponseEntity<Void> updateGame(@PathVariable Long gameId, @RequestBody GameModel gameRequest, @RequestHeader("X-User-Id") Long userId);
 
-    @DeleteMapping("/{gameId}")
-    public ResponseEntity<Void> deleteGame(@PathVariable Long gameId);
+    @DeleteMapping("/delete/{gameId}")
+    ResponseEntity<Void> removeGame(@PathVariable Long gameId, @RequestHeader("X-User-Id") Long userId);
 }

@@ -20,9 +20,13 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public GameModel getGame(Long gameId) {
-        return Optional.of(gameId)
-                .flatMap(gameRepository::findById)
-                .orElseThrow(() -> new GameNotFoundException("Game with ID " + gameId + " not found."));
+        System.out.println("Service - Fetching game with ID: " + gameId);
+        GameModel game = Optional.of(gameId)
+                .flatMap(gameRepository::findById) // flatMap "flattens" the result, avoiding nested Optional objects
+                .orElseThrow(() -> new RuntimeException("Couldnt find game with ID " + gameId));
+
+        System.out.println("Service - Found game: " + game);
+        return game;
     }
 
     @Override
@@ -33,12 +37,10 @@ public class GameServiceImpl implements GameService {
                 .orElseThrow(() -> new RuntimeException("An error occurred while creating the game"));
     }
 
-    private GameModel mapToEntity(GameModel gameRequest) {
-        return GameModel.builder().name(gameRequest.getName()).build();
-    }
+
 
     @Override
-    public GameModel updateGame(GameModel gameModel, Long gameId) {
+    public GameModel updateGame(Long gameId,GameModel gameModel ) {
         return Optional.of(gameId)
                 .flatMap(gameRepository::findById)
                 .map(existingGame -> updateGameFields(existingGame, gameModel))
@@ -61,4 +63,7 @@ public class GameServiceImpl implements GameService {
     }
 
 
+    private GameModel mapToEntity(GameModel gameRequest) {
+        return GameModel.builder().name(gameRequest.getName()).build();
+    }
 }
