@@ -45,6 +45,7 @@ public class GameController implements GameApi {
     @Override
     public ResponseEntity<GameModel> createGame(GameModel gameRequest, Long userId) {
         System.out.println("X-User-Id: " + userId);
+        System.out.println(userId.getClass());
         gameRequest.setUserId(userId);
         return ResponseEntity.ok(gameService.createGame(gameRequest));
     }

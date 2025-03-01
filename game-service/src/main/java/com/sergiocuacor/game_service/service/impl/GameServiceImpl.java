@@ -64,6 +64,7 @@ public class GameServiceImpl implements GameService {
 
 
     private GameModel mapToEntity(GameModel gameRequest) {
-        return GameModel.builder().name(gameRequest.getName()).build();
+        return GameModel.builder().name(gameRequest.getName()).userId(gameRequest.getUserId()).build();
+
     }
 }

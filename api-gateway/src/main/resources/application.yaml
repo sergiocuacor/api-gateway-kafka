@@ -9,15 +9,25 @@ spring:
         - id: users-route
           uri: http://localhost:8081
           predicates:
-            - Path=/v1/users/**
+            - Path=/v1/user/**
           filters:
             - AuthenticationFilter
         - id: games-route
           uri: http://localhost:8082
           predicates:
-            - Path=/v1/games/**
+            - Path=/v1/game/**
           filters:
             - AuthenticationFilter
+        - id: openapi
+          uri: http://localhost:${server.port}
+          predicates:
+            - Path=/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+        - id: swagger-ui
+          uri: http://localhost:${server.port}
+          predicates:
+            - Path=/swagger-ui/**
   endpoints:
     web:
       exposure:
@@ -32,3 +42,14 @@ server:
   port: 8083
 jwt:
   secret: jefjafledmfsjretpowjlkvmklsahfkjashcmasadajfksdfalsdfjskdfkjsdjkfsdjakfjsdkfjasdlkfjskdaljfkdsajflkasjdkfajskldfjksaldjfkldsajfkasjdklfjsakdfjlsjkfljsdklafjsdklfjskladjfklasdjfikleijioueifiuriwoeutqiwcnfhjskhfjaskfsdhfjkashfuwiyrtwiurywiryutg
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+  enable-native-support: true
+  # Para permitir agrupar APIs por servicios/grupos
+  packages-to-scan: com.sergiocuacor.api_gateway
+  group-configs:
+    - group: gateway
+      paths-to-match: /**

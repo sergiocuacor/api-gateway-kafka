@@ -12,12 +12,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(ApiPathConstants.V1_ROUTE + ApiPathConstants.USER_ROUTE)
 public interface UserApi {
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<UserResponse> getUser(@PathVariable Long userId);
+    @GetMapping("/user-info")
+    ResponseEntity<UserResponse> getUser(@RequestHeader("X-User-Id") Long userId);
+
 
     @PutMapping("/{userId}")
-    public ResponseEntity<Void> updateUser(@RequestBody UserUpdateRequest user, @PathVariable Long userId);
+    ResponseEntity<UserResponse> updateUser(
+            @RequestHeader("X-User-Id") Long userId,
+            @RequestBody UserUpdateRequest updateRequest
+    );
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long userId);
+    ResponseEntity<Void> deleteUser(@RequestHeader("X-User-Id") Long userId);
 }

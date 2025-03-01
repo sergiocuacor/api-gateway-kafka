@@ -22,15 +22,19 @@ public class UserController implements UserApi {
 
     @Override
     public ResponseEntity<UserResponse> getUser(Long userId) {
+        System.out.println("Endpoint /user-info llamado");
+        System.out.println("UserId recibido: " + userId);
+
+
         return ResponseEntity.ok(userService.getUser(userId));
     }
 
     @Override
-    public ResponseEntity<Void> updateUser(UserUpdateRequest user, Long userId) {
-
-        userService.updateUser(user, userId);
+    public ResponseEntity<UserResponse> updateUser(Long userId, UserUpdateRequest userUpdateRequest) {
+        userService.updateUser(userUpdateRequest, userId);
         return ResponseEntity.noContent().build();
     }
+
 
     @Override
     public ResponseEntity<Void> deleteUser(Long userId) {

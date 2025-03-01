@@ -36,6 +36,12 @@ public class AuthServiceImpl implements AuthService {
     }
     @Override
     public TokenResponse createUser(UserRequest userRequest) {
+
+        if (userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("ERROR: Email is already in use");
+        }
+
+
         return Optional.of(userRequest)
                 .map(this::mapToEntity)
                 .map(userRepository::save)
