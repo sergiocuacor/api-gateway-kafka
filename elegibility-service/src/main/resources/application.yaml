@@ -1,0 +1,53 @@
+server:
+  port: 8085
+
+spring:
+  data:
+    r2dbc:
+      repositories:
+        enabled: true
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/micro_db
+    username: postgres
+    password: 1234
+
+  cloud:
+    function:
+      definition: gameCreatedBinding
+    stream:
+      default-binder: kafka_default # binder (tecnología de mensajería) predeterminado
+      bindings:
+        gameBinding-in.0:
+          destination: event.game-created
+          binder: kafka_default
+          useNativeDecoding: true
+        gameBinding-out-0:
+          destination: event.game-eligible # topic donde se publicarán los mensajes
+          binder: kafka_default # referencia al binder kafka_default que se define más abajo
+          useNativeDecoding: true
+      binders:
+        kafka_default: #configuración del binder
+          type: kafka # el tipo del binder kafka_default será kafka
+          environment:
+            spring:
+              cloud:
+                stream:
+                  kafka:
+                    default:
+                      consumer: ## config del consumer (recibe mensajes)
+                        configuration:
+                          session.timeout.ms: 10000
+                          max.poll.records: 10
+                      producer: ## config del producer (publica mensajes)
+                        compressionType: gzip
+                        configuration:
+                          max.request.size: 10000
+
+                    binder: ## Config general del binder de Kafka
+                      autoAddPartitions: true # añade particiones automáticamente si son necesarias
+                      autoCreateTopics: true # crea topics automáticamente si no existen
+                      requiredAcks: -1
+                      minPartitionCount: 3 # mínimo de particiones para cada topic creado
+                      replicationFactor: 1
+                      serdeError: logAndContinue
+                      broker: localhost:9092 # dirección del broker de kafka
