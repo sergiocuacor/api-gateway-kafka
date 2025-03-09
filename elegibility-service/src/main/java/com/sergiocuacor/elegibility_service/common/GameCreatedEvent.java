@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class GameCreatedEvent {
+public class GameCreatedEvent { // Objeto recibido del kafka topic event.game-created
 
 	private Long gameId;
 	private String gameName;

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.sergiocuacor.elegibility_service.common.GameCreatedEvent;
 import com.sergiocuacor.elegibility_service.common.GameEligibleEvent;
+import com.sergiocuacor.elegibility_service.services.GameEligibleService;
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
