@@ -17,11 +17,11 @@ spring:
     stream:
       default-binder: kafka_default # binder (tecnología de mensajería) predeterminado
       bindings:
-        gameBinding-in.0:
+        gameCreatedBinding-in-0:
           destination: event.game-created
           binder: kafka_default
           useNativeDecoding: true
-        gameBinding-out-0:
+        gameCreatedBinding-out-0:
           destination: event.game-eligible # topic donde se publicarán los mensajes
           binder: kafka_default # referencia al binder kafka_default que se define más abajo
           useNativeDecoding: true

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class GameEligibleEvent {
 
 	private Long gameId;
-	private String gameName;
+	private String name;
 	private Long userId;
 	private Boolean isEligible;
 	

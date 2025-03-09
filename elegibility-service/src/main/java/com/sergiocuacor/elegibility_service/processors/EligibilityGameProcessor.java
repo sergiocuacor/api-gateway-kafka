@@ -21,6 +21,7 @@ public class EligibilityGameProcessor {
 	}
 	
 	public Flux<GameEligibleEvent> process(Flux<GameCreatedEvent> gameCreatedEventFlux){
+		log.info("Processing event: {}", gameCreatedEventFlux);
 		return gameCreatedEventFlux.doOnNext(given -> log.info("Entry event: {}",given))
 				.flatMap(gameEligibleService::elegibilityGame)
 				.onErrorContinue(this::handleError);

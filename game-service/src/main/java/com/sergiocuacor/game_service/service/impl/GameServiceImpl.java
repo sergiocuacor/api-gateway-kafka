@@ -75,7 +75,7 @@ public class GameServiceImpl implements GameService {
     }
     
     private GameModel sendGameEvent( GameModel gameModel) {
-
+    	
         boolean sent = streamBridge.send(TopicConstants.GAME_CREATED_TOPIC, gameModel);
         if(!sent){
             System.out.println(

@@ -17,15 +17,17 @@ public class GameEligibleServiceImpl implements GameEligibleService{
 				.flatMap(this::checkIsEligible)
 				.map(givenCreated -> GameEligibleEvent.builder()
 						.gameId(gameCreatedEvent.getGameId())
-						.gameName(gameCreatedEvent.getGameName())
+						.name(gameCreatedEvent.getName())
 						.userId(gameCreatedEvent.getUserId())
 						.isEligible(true)
 						.build());
 	}
 	
 	private Mono<GameCreatedEvent> checkIsEligible(GameCreatedEvent gameCreatedEvent){
+		
+		
 		return Mono.just(gameCreatedEvent)
-				.filter(given -> !given.getGameName().isBlank()) // comprobamos que el name no esté vacío para ser eligible
+				.filter(given -> !given.getName().isBlank()) // comprobamos que el name no esté vacío para ser eligible
 				.map(given -> gameCreatedEvent)
 				;
 	}

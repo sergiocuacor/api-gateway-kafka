@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 public class GameCreatedEvent { // Objeto recibido del kafka topic event.game-created
 
 	private Long gameId;
-	private String gameName;
+
 	private Long userId;
-	
+
+	private String name;
 }
