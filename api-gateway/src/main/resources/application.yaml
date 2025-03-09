@@ -48,7 +48,7 @@ springdoc:
   api-docs:
     path: /v3/api-docs
   enable-native-support: true
-  # Para permitir agrupar APIs por servicios/grupos
+  # Para agrupar APIs por servicios/grupos
   packages-to-scan: com.sergiocuacor.api_gateway
   group-configs:
     - group: gateway
