@@ -4,6 +4,7 @@ import com.sergiocuacor.auth_service.commons.dtos.LoginRequest;
 import com.sergiocuacor.auth_service.commons.dtos.TokenResponse;
 import com.sergiocuacor.auth_service.commons.dtos.UserRequest;
 import com.sergiocuacor.auth_service.commons.entities.UserModel;
+import com.sergiocuacor.auth_service.commons.exceptions.auth_exceptions.EmailAlreadyExistsException;
 import com.sergiocuacor.auth_service.repository.UserRepository;
 import com.sergiocuacor.auth_service.service.AuthService;
 import com.sergiocuacor.auth_service.service.JwtService;
@@ -38,7 +39,7 @@ public class AuthServiceImpl implements AuthService {
     public TokenResponse createUser(UserRequest userRequest) {
 
         if (userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("ERROR: Email is already in use");
+        	 throw new EmailAlreadyExistsException(userRequest.getEmail());
         }
 
 

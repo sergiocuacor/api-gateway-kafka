@@ -4,6 +4,7 @@ package com.sergiocuacor.user_service.service.impl;
 import com.sergiocuacor.user_service.commons.dtos.UserResponse;
 import com.sergiocuacor.user_service.commons.dtos.UserUpdateRequest;
 import com.sergiocuacor.user_service.commons.entities.UserModel;
+import com.sergiocuacor.user_service.commons.exceptions.user_exceptions.UserNotFoundException;
 import com.sergiocuacor.user_service.repository.UserRepository;
 import com.sergiocuacor.user_service.service.UserService;
 import org.apache.catalina.User;
@@ -25,7 +26,7 @@ public class UserServiceImpl implements UserService {
         return Optional.of(userId)
                 .flatMap(userRepository::findById)
                 .map(this::mapToDto)
-                .orElseThrow(()-> new RuntimeException("User with ID "+ userId+ " not found."));
+                .orElseThrow(()-> new UserNotFoundException(userId));
     }
 
 
